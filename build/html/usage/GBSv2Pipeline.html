@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GBS v2 Pipeline &mdash; TASSEL_log 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PilotRun" href="PilotRun.html" />
+    <link rel="prev" title="Welcome to TASSEL_log’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TASSEL_log
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GBS v2 Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#essential-files-overview">Essential files Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#q-a">Q &amp; A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#discovery-pipeline-overview">Discovery Pipeline Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step1-gbsseqtotagdbplugin">Step1 (GBSSeqToTagDBPlugin)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step2-tagexporttofastqplugin">Step2 (TagExportToFastqPlugin):</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step3-bwa-alingment">Step3 (BWA alingment)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step4-samtogbsdbplugin">Step4 (SAMToGBSdbPlugin)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step5-discoverysnpcallerpluginv2">Step5 (DiscoverySNPCallerPluginV2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step6-snpqualityprofilerplugin">Step6 (SNPQualityProfilerPlugin)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step7-updatesnppositionqualityplugin">Step7 (UpdateSNPPositionQualityPlugin)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step8-snpcutpostagverification">Step8 (SNPCutPosTagVerification)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#production-pipeline-overview">Production Pipeline Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Q &amp; A</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PilotRun.html">PilotRun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Diploid.html">Diploid</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TASSEL_log</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>GBS v2 Pipeline</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/GBSv2Pipeline.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gbs-v2-pipeline">
+<h1>GBS v2 Pipeline<a class="headerlink" href="#gbs-v2-pipeline" title="Permalink to this headline">¶</a></h1>
+<p>Wiki website: <a class="reference external" href="https://bitbucket.org/tasseladmin/tassel-5-source/wiki/Tassel5GBSv2Pipeline">GBSv2Pipeline</a></p>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>GBS version2 is trying to keep all the information in a single database. To make it much more tidy and precise. In each step, we can choose whether to cover the old database or not.
+There are two main pipeline workflows, one is dealing with the database (Discovery Pipeline); the other is for output files (Production Pipeline).</p>
+<p><strong>Structure of the GBS V2 pipeline:</strong></p>
+<ol class="arabic simple">
+<li><p><em>Discovery Pipeline</em> is to make the annotation and find the SNPs;</p></li>
+<li><p><em>Production Pipeline</em> is to make the output files that we can easily to read or do the downstream analysis.</p></li>
+</ol>
+<img alt="../_images/Tassel5GBSv2.jpg" src="../_images/Tassel5GBSv2.jpg" />
+<img alt="../_images/DatabaseOverview.jpg" src="../_images/DatabaseOverview.jpg" />
+</div>
+<div class="section" id="essential-files-overview">
+<h2>Essential files Overview<a class="headerlink" href="#essential-files-overview" title="Permalink to this headline">¶</a></h2>
+<p><strong>FASTAQ</strong> – File format</p>
+<p>[when you get your FASTQ data, you should copy the type and make the annotation here, here shows the basic.]</p>
+<ul class="simple">
+<li><p><em>Basic Statistics</em></p></li>
+<li><p><em>Per Base Sequence Quality</em></p></li>
+<li><p><em>Per Sequence Quality Scores</em></p></li>
+<li><p><em>Per Base Sequence Content</em></p></li>
+<li><p><em>Per Sequence GC content</em></p></li>
+<li><p><em>Per Base N Content</em></p></li>
+<li><p><em>Sequence Length Distribution</em></p></li>
+<li><p><em>Sequence Duplication Levels</em></p></li>
+<li><p><em>Overrepresented Sequences</em></p></li>
+<li><p><em>Adapter Content</em></p></li>
+<li><p><em>Kmer Content</em></p></li>
+</ul>
+<p><strong>Keyfile</strong></p>
+<p>Four required headers: Flowcell, Lane, Barcode and FullSampleName.</p>
+<p><em>TIPS</em></p>
+<ul class="simple">
+<li><p>It is not necessary for the required column to be consecutive;</p></li>
+<li><p>It is case-sensitive – should be exact the same;</p></li>
+<li><p>Additional columns will be annotations;</p></li>
+<li><p>FullSampleName should be different – otherwise they’ll all merged and processes together.</p></li>
+</ul>
+<p><strong>referenceGenome</strong></p>
+<div class="section" id="q-a">
+<h3>Q &amp; A<a class="headerlink" href="#q-a" title="Permalink to this headline">¶</a></h3>
+<p>Q1. What do PlateName, Row and Column HERE mean?</p>
+<p>Q2. How to decide the reference? What potential problems will it contain? Diploid and tetraploid?</p>
+<p>Q3. The info of our reference genome – the species, how large, quality, how to define it…</p>
+</div>
+</div>
+<div class="section" id="discovery-pipeline-overview">
+<h2>Discovery Pipeline Overview<a class="headerlink" href="#discovery-pipeline-overview" title="Permalink to this headline">¶</a></h2>
+<p>## Steps and related input / ouput files</p>
+<p>## Related parameters</p>
+<div class="section" id="step1-gbsseqtotagdbplugin">
+<h3>Step1 (GBSSeqToTagDBPlugin)<a class="headerlink" href="#step1-gbsseqtotagdbplugin" title="Permalink to this headline">¶</a></h3>
+<p>FASTAQ files( <em>/disk2/Twyford_GBS_illumina/</em> ); Key File ( <em>/localdisk/home/s1950737/Diploid/DipKey.txt</em> ) ==&gt;&gt; GBSV2.db ( <em>/localdisk/home/s1950737/Diploid</em> )</p>
+<p>Parameters (#D=default, R=required input):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">(D=10)</span></code> &lt;Min Kmer Count&gt;: <a class="reference external" href="https://en.wikipedia.org/wiki/K-mer">Kmers</a> count times; discard if it is no more than c. !!!All taxa, not each individual taxon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-db</span> <span class="pre">(R)</span></code> &lt;Output Database File&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-deleteOldData</span> <span class="pre">(D=true)</span></code> &lt; true | false&gt; :true for cover, false for append (sometimes may contain some problems)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">(R)</span></code> &lt;Enzyme&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">(R)</span></code> &lt;Input Directory&gt;: Input directory containing FASTQ files in text or gzipped text. !!No slash in the directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-k</span> <span class="pre">(R)</span></code> &lt;Key File&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-mnQS</span> <span class="pre">(D=0)</span></code> &lt;Minimum quality score&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-kmerLength</span> <span class="pre">(D=64)</span></code> &lt;Kmer Length&gt; : <em>longest barcode + kmerlength</em> must &lt; read length</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-minKmerL</span> <span class="pre">(D=20)</span></code> &lt;Minimum Kmer Length&gt; : cut by a second cut site after the kmer finding process, this parameter is to ensure the minimum length kmer exists.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-mxKmerNum</span> <span class="pre">(D=50000000)</span></code> &lt;Maximum Number of Kmers&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-batchSize</span> <span class="pre">(D=8)</span></code> &lt;Number of flow cells processed simultaneously&gt;</p></li>
+</ul>
+</div>
+<div class="section" id="step2-tagexporttofastqplugin">
+<h3>Step2 (TagExportToFastqPlugin):<a class="headerlink" href="#step2-tagexporttofastqplugin" title="Permalink to this headline">¶</a></h3>
+<p>GBSV2.db ( <em>/localdisk/home/s1950737/Diploid</em> ) ==&gt;&gt; tagsForAlign.fa.gz ( <em>/localdisk/home/s1950737/Diploid</em> )</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">(D=1)</span></code> &lt;Min Count&gt;: Minimum count of reads for a tag to be output</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-db</span> <span class="pre">(R)</span></code> &lt;Input DB&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-0</span> <span class="pre">(R)</span></code> &lt;Output File&gt;: Output fastq file to use as input for BWA</p></li>
+</ul>
+</div>
+<div class="section" id="step3-bwa-alingment">
+<h3>Step3 (BWA alingment)<a class="headerlink" href="#step3-bwa-alingment" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Step3-1: create an index from the reference genome</p>
+</div></blockquote>
+<p>refereance genome ( <em>/localdisk/home/s1950737/referenceGenome</em> ) ==&gt;&gt; several index files – bwt, pac, ann, sa ( <em>/localdisk/home/s1950737/referenceGenome</em> )</p>
+<blockquote>
+<div><p>Step3-2: alignment</p>
+</div></blockquote>
+<p>reference genome ( <em>/localdisk/home/s1950737/referenceGenome</em> ); tagsForAlign.fa.gz ( <em>/localdisk/home/s1950737/Diploid</em> ) ==&gt;&gt; tagsForAlign.sai ( <em>/localdisk/home/s1950737/bwa</em> )</p>
+<blockquote>
+<div><p>Step3-3: to creat sam file</p>
+</div></blockquote>
+<p>reference genome ( <em>/localdisk/home/s1950737/referenceGenome</em> ); tagsForAlign.fa.gz ( <em>/localdisk/home/s1950737/Diploid</em> ); tagsForAlign.sai ( <em>/localdisk/home/s1950737/bwa</em> ) ==&gt;&gt; tagsForAlign.sam ( <em>/localdisk/home/s1950737/bwa</em> )</p>
+</div>
+<div class="section" id="step4-samtogbsdbplugin">
+<h3>Step4 (SAMToGBSdbPlugin)<a class="headerlink" href="#step4-samtogbsdbplugin" title="Permalink to this headline">¶</a></h3>
+<p><strong>Determine the potential positions of Tags against the reference genome</strong></p>
+<p>tagsForAlign.sam ( <em>/localdisk/home/s1950737/bwa</em> ) ==&gt;&gt; GBSV2.db ( <em>/localdisk/home/s1950737/Diploid</em> )</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-aLen</span> <span class="pre">(D=0)</span></code> &lt; Minimum length of aligned base pair to store the SAM entry&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-aProp</span> <span class="pre">(D=0)</span></code> &lt;Minimum proportion of sequence that must align to store the SAM entry&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">(R)</span></code> &lt;SAM Input file&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-db</span> <span class="pre">(R)</span></code> &lt;GBS DB file&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-minMAPQ</span> <span class="pre">(D=0)</span></code> &lt; Minimum value of MAPQ field to store the SAM entry &gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-deleteOldData</span> <span class="pre">(D=true)</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="step5-discoverysnpcallerpluginv2">
+<h3>Step5 (DiscoverySNPCallerPluginV2)<a class="headerlink" href="#step5-discoverysnpcallerpluginv2" title="Permalink to this headline">¶</a></h3>
+<p><strong>Identify SNPs from the aligned tags</strong></p>
+<blockquote>
+<div><p>GBSV2.db ( <em>/localdisk/home/s1950737/Diploid</em> ) ==&gt;&gt; GBSV2.db ( <em>/localdisk/home/s1950737/Diploid</em> )</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-callBiSNPsWGap</span> <span class="pre">(D=false)</span></code> Include sites where the third allele is a GAP (mutually exclusive with inclGaps) (Default: false) <em>This option has not yet been implemented.</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-db</span> <span class="pre">(R)</span></code> &lt;Input GBS Database&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-gapAlignRatio</span></code> &lt;Gap Alignment Threshold&gt;: indel contrasts to non indel contrasts [IC/(IC+NC)]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-inclGaps</span> <span class="pre">(D=false)</span></code> Include sites where major or minor allele is a GAP <em>This option has not yet been implemented.</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-inclRare</span> <span class="pre">(D=false)</span></code> Include the rare alleles at site (3 or 4th states) <em>This option has not yet been implemented.</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-maxTagsCutSite</span> <span class="pre">(D=64)</span></code> &lt;Max tags per cut site position&gt;: Maximum number of tags allowed per cut site when aligning tags . All cut site positions and their tags are stored in the database, but alignment of tags at a particular cut site position only occurs when the number of tags at this position is equal to or less than maxTagsPerCutSite. This guards against software degradation when a position has hundreds or thousands of associated tags.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-mnLCov</span> <span class="pre">(D=0.1)</span></code> &lt;Minimum Locus Coverage&gt;: proportion of Taxa with a genotype.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-mnMAF</span> <span class="pre">(D=0.01)</span></code> &lt;Minimum <a class="reference external" href="https://en.wikipedia.org/wiki/Minor_allele_frequency">Minor Allele Freq</a> &gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-ref</span> <span class="pre">(D=no</span> <span class="pre">reference</span> <span class="pre">genome)</span></code> &lt;Reference Genome File&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-sC</span></code> &lt;Start Chromosome&gt;:  If missing, processing starts with the first chromosome (lexicographically) in the database.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-eC</span></code> &lt;End Chromosome&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-deleteOldData</span> <span class="pre">(D=true)</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="step6-snpqualityprofilerplugin">
+<h3>Step6 (SNPQualityProfilerPlugin)<a class="headerlink" href="#step6-snpqualityprofilerplugin" title="Permalink to this headline">¶</a></h3>
+<p><strong>This plugin scores all discovered SNPs for various coverage, depth and genotypic statistics for a given set of taxa. If no taxa are specified, the plugin will score all taxa currently stored in the data base. If no taxa file is specified, the plugin uses the taxa stored in the database.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-db</span> <span class="pre">(R)</span></code> &lt;Output Database file&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-deleteOldData</span> <span class="pre">(D=true)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-taxa</span></code> &lt;Taxa sublist file&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-tname</span></code> &lt;Taxa set name &gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">statFile</span></code> &lt;Quality information output name &gt;</p></li>
+</ul>
+</div>
+<div class="section" id="step7-updatesnppositionqualityplugin">
+<h3>Step7 (UpdateSNPPositionQualityPlugin)<a class="headerlink" href="#step7-updatesnppositionqualityplugin" title="Permalink to this headline">¶</a></h3>
+<p><strong>To annotate the SNP quality in user’s way</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-db</span> <span class="pre">(R)</span></code> &lt; Input Database&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-qsFile</span> <span class="pre">(R)</span></code> &lt;Quality Score File&gt;</p></li>
+</ul>
+</div>
+<div class="section" id="step8-snpcutpostagverification">
+<h3>Step8 (SNPCutPosTagVerification)<a class="headerlink" href="#step8-snpcutpostagverification" title="Permalink to this headline">¶</a></h3>
+<p><strong>For users who want to specify a Cut or SNP position</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-db</span> <span class="pre">(R)</span></code> &lt; Input Database&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-chr</span> <span class="pre">(R)</span></code> &lt;Chromosome&gt; : Chromosome containing the position.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-pos</span> <span class="pre">(R)</span></code> A cut or SNP position number.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-strand</span> <span class="pre">(R)</span></code> The strand direction: 0=reverse, 1=forward</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-type</span></code> The type of position, either cut or snp, for which the taxa distribution will be presented.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-outFile</span> <span class="pre">(R)</span></code></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="production-pipeline-overview">
+<h2>Production Pipeline Overview<a class="headerlink" href="#production-pipeline-overview" title="Permalink to this headline">¶</a></h2>
+<p><strong>ProductionSNPCallerPluginV2 – this plugin converts data from fastq and keyfile to genotypes, then adds these to a genotype file in VCF and HDF5 format.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-batchSize</span> <span class="pre">(D=8)</span></code> &lt;Batch Size&gt; : Number of flow cells to process simultaneously.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">(D=0)</span></code> &lt;Max Divergence&gt; : Maximum divergence (edit distance) between new read and previously mapped read (Default means perfect matches only)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-db</span> <span class="pre">(R)</span></code> &lt;Input GBS Database&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">(R)</span></code> &lt;Enzyme&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-eR</span> <span class="pre">(D=0.01)</span></code> &lt;Ave Seq Error Rate&gt; : Average sequencing error rate per base (used to decide between heterozygous and homozygous calls)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">(R)</span></code> &lt;Input Directory&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-k</span> <span class="pre">(R)</span></code> &lt;Key File&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-ko</span> <span class="pre">(D=false)</span></code> Keep HDF5 genotypes file open for future runs that add more taxa or more depth</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-kmerLength</span> <span class="pre">(D=64)</span></code> &lt;Length of Kmer&gt; : Lemgth of kmers to grab from fastQ sequences. <strong>This value should match the kmerLength parameter value used in the GBSSeqToTagDBPlugin step of the pipeline.</strong> Bad values may be stored in the HDF5 file if these values are inconsistent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-minPosQS</span> <span class="pre">(D=0)</span></code> &lt; Minimum Quality Score&gt; : The minimum quality score a SNP position must have to be output to the HDF5 file. The quality scores are loaded into the database via the tab-delimited file read in from the UpdateSNPPositionQualityPlugin. A value of 0 indicates all positions should be processed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-mnQS</span> <span class="pre">(D=0)</span></code> &lt; Minimum Quality Score&gt; : The minimum quality score within the barcode and read length for a position to be accepted. This filters the read values from the fastQ files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-do</span> <span class="pre">(D=true)</span></code> write depths to the output HDF5 genotypes file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">(R)</span></code> &lt;Output Genotypes File&gt;: VCF format is the default. if the file specified has suffix “.h5” output will be to an HDF5 file. (REQUIRED)</p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>Q &amp; A<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>What do I need for my research?</p></li>
+<li><p>What does each step mean? Do I need them all?</p></li>
+<li><p>Does my pilot run contain any problems? (Except for the default?)</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PilotRun.html" class="btn btn-neutral float-right" title="PilotRun" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to TASSEL_log’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Yanqian Ding
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

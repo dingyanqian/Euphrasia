@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PilotRun &mdash; TASSEL_log 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Diploid" href="Diploid.html" />
+    <link rel="prev" title="GBS v2 Pipeline" href="GBSv2Pipeline.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TASSEL_log
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html">GBS v2 Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html#step1-gbsseqtotagdbplugin">Step1 (GBSSeqToTagDBPlugin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html#step2-tagexporttofastqplugin">Step2 (TagExportToFastqPlugin):</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html#step3-bwa-alingment">Step3 (BWA alingment)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html#step4-samtogbsdbplugin">Step4 (SAMToGBSdbPlugin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html#step5-discoverysnpcallerpluginv2">Step5 (DiscoverySNPCallerPluginV2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html#step6-snpqualityprofilerplugin">Step6 (SNPQualityProfilerPlugin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html#step7-updatesnppositionqualityplugin">Step7 (UpdateSNPPositionQualityPlugin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GBSv2Pipeline.html#step8-snpcutpostagverification">Step8 (SNPCutPosTagVerification)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PilotRun</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step1-gbsseqtotagdbplugin">20191113_Step1: GBSSeqToTagDBPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step2-tagexporttofastqplugin">20191118_Step2: TagExportToFastqPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step3-alingment">20191118_Step3: Alingment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step5-discoverysnpcallerpluginv2">20191118_Step5: DiscoverySNPCallerPluginV2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#productionsnpcallerpluginv2">20191118_ProductionSNPCallerPluginV2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step6-snpqualityprofilerplugin">20191118_Step6: SNPQualityProfilerPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step4-samtogbsdbplugin">20191120_Step4: SAMToGBSdbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">20191120_Step5: DiscoverySNPCallerPluginV2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">20191125_Step6: SNPQualityProfilerPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step7-updatesnppositionqualityplugin">20191125_Step7: UpdateSNPPositionQualityPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#productionpipeline-productionsnpcallerpluginv2">20191123_ProductionPipeline ProductionSNPCallerPluginV2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#q-a">Q &amp; A</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Diploid.html">Diploid</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TASSEL_log</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>PilotRun</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/PilotRun.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pilotrun">
+<h1>PilotRun<a class="headerlink" href="#pilotrun" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="step1-gbsseqtotagdbplugin">
+<h2>20191113_Step1: GBSSeqToTagDBPlugin<a class="headerlink" href="#step1-gbsseqtotagdbplugin" title="Permalink to this headline">¶</a></h2>
+<p>Wiki website: <a class="reference external" href="https://bitbucket.org/tasseladmin/tassel-5-source/wiki/Tassel5GBSv2Pipeline/GBSSeqToTagDBPlugin">GBSSeqToTagDBPlugin</a></p>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">db</span>  <span class="c1">## &lt;Output Database file&gt;: Output Database File</span>
+<span class="o">-</span><span class="n">e</span>  <span class="c1">## &lt;Enzyme&gt; : Enzyme used to create the GBS library if it differs from the one listed in the key file.</span>
+<span class="o">-</span><span class="n">i</span>  <span class="c1">## &lt;Input Directory&gt;: Input directory containing FASTQ files in text or gzipped text. NOTE: Directory will be searched recursively and should be written WITHOUT a slash after its name.</span>
+<span class="o">-</span><span class="n">k</span>  <span class="c1">## &lt;Key File&gt; : Key file listing barcodes distinguishing the samples.</span>
+</pre></div>
+</div>
+<p>My code – first try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">GBSSeqToTagDBPlugin</span> <span class="o">-</span><span class="n">db</span> <span class="o">/</span><span class="n">localdisk</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">s1950737</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span> <span class="o">-</span><span class="n">e</span> <span class="n">ApeKI</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_illumina</span> <span class="o">-</span><span class="n">k</span> <span class="o">/</span><span class="n">localdisk</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">s1950737</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">DipKey</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Error info:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERROR</span> <span class="n">net</span><span class="o">.</span><span class="n">maizegenetics</span><span class="o">.</span><span class="n">plugindef</span><span class="o">.</span><span class="n">ThreadedPluginListener</span> <span class="o">-</span> <span class="n">Out</span> <span class="n">of</span> <span class="n">Memory</span><span class="p">:</span> <span class="n">GBSSeqToTagDBPlugin</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">complete</span> <span class="n">task</span><span class="p">:</span>
+<span class="n">Current</span> <span class="n">Max</span> <span class="n">Heap</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">1531</span> <span class="n">Mb</span>
+<span class="n">Use</span> <span class="o">-</span><span class="n">Xmx</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">start_tassel</span><span class="o">.</span><span class="n">pl</span> <span class="ow">or</span> <span class="n">start_tassel</span><span class="o">.</span><span class="n">bat</span> <span class="n">to</span> <span class="n">increase</span> <span class="n">heap</span> <span class="n">size</span><span class="o">.</span> <span class="n">Included</span> <span class="k">with</span> <span class="n">tassel</span> <span class="n">standalone</span> <span class="nb">zip</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>My code – second try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">Xms100G</span> <span class="o">-</span><span class="n">Xmx200G</span> <span class="o">-</span><span class="n">GBSSeqToTagDBPlugin</span> <span class="o">-</span><span class="n">db</span> <span class="o">/</span><span class="n">localdisk</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">s1950737</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span> <span class="o">-</span><span class="n">e</span> <span class="n">ApeKI</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_illumina</span> <span class="o">-</span><span class="n">k</span> <span class="o">/</span><span class="n">localdisk</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">s1950737</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">DipKey</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p><em>Time consumed: Start time: 17:00 15/11/19; screen -r diploid2</em></p>
+</div>
+<div class="section" id="step2-tagexporttofastqplugin">
+<h2>20191118_Step2: TagExportToFastqPlugin<a class="headerlink" href="#step2-tagexporttofastqplugin" title="Permalink to this headline">¶</a></h2>
+<p><strong>Parameters required:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">c</span> <span class="c1">## &lt;Min Count&gt;: Minimum count of reads for a tag to be output (Default: 1) This is a total of X count across all taxa, not in each individual taxon.</span>
+<span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;Input DB&gt; : Input database file with tags and taxa distribution (REQUIRED)</span>
+<span class="o">-</span><span class="n">o</span> <span class="c1">## &lt;Output File&gt; : Output fastq file to use as input for BWA or Bowtie2 (REQUIRED)</span>
+</pre></div>
+</div>
+<p>My code (screen -r diploid2):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">fork1</span> <span class="o">-</span><span class="n">TagExportToFastqPlugin</span> <span class="o">-</span><span class="n">db</span> <span class="o">/</span><span class="n">localdisk</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">s1950737</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">localdisk</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">s1950737</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">tagsForAlign</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">gz</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span> <span class="o">-</span><span class="n">endPlugin</span> <span class="o">-</span><span class="n">runfork1</span>
+</pre></div>
+</div>
+<p><em>Time consumed: 10 minutes</em></p>
+</div>
+<div class="section" id="step3-alingment">
+<h2>20191118_Step3: Alingment<a class="headerlink" href="#step3-alingment" title="Permalink to this headline">¶</a></h2>
+<p><strong>Bowtie or BWA?</strong> – BWA</p>
+<blockquote>
+<div><p>‘ <em>Bowtie 2</em> is an ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters, and particularly good at aligning to relatively long (e.g. mammalian) genomes. Bowtie 2 indexes the genome with an FM Index to keep its memory footprint small: for the human genome, its memory footprint is typically around 3.2 GB. Bowtie 2 supports gapped, local, and paired-end alignment modes.’</p>
+<p>‘ <em>BWA</em> is a software package for mapping low-divergent sequences against a large reference genome, such as the human genome. It consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.’</p>
+</div></blockquote>
+<p><strong>BWA</strong> (download and move to server by SSH copy)</p>
+<p><em>First step:running with BWA is to create an index from the reference genome</em> – (screen -r diploid2)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_files</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+<p><strong>Errors and debug:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERROR</span> <span class="o">--</span> <span class="n">bwa</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+<span class="n">DEBUG</span> <span class="o">--</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lh3</span><span class="o">/</span><span class="n">bwa</span><span class="o">.</span><span class="n">git</span>
+         <span class="n">cd</span> <span class="n">bwa</span><span class="p">;</span> <span class="n">make</span>
+         <span class="o">./</span><span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_files</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fa</span>
+
+<span class="n">Error</span> <span class="o">--</span> <span class="p">[</span><span class="n">bwa_idx_build</span><span class="p">]</span> <span class="n">fail</span> <span class="n">to</span> <span class="nb">open</span> <span class="n">file</span> <span class="s1">&#39;disk2/Twyford_GBS_files/Diploid/anglica_HB050619_scaffoldsKeptAnno.fa&#39;</span> <span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span>
+<span class="n">DEBUG</span> <span class="o">--</span> <span class="o">./</span><span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="o">/</span><span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_files</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fasta</span>
+
+<span class="n">Error</span> <span class="o">--</span> <span class="n">Pack</span> <span class="n">FASTA</span><span class="o">...</span> <span class="p">[</span><span class="n">bns_fasta2bntseq</span><span class="p">]</span> <span class="n">fail</span> <span class="n">to</span> <span class="nb">open</span> <span class="n">file</span> <span class="s1">&#39;/disk2/Twyford_GBS_files/Diploid/anglica_HB050619_scaffoldsKeptAnno.fasta.pac&#39;</span> <span class="p">:</span> <span class="n">Permission</span> <span class="n">denied</span>
+<span class="n">DEBUG</span> <span class="o">--</span> <span class="n">sudo</span> <span class="o">./</span><span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="o">/</span><span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_files</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fasta</span>
+
+<span class="n">Error</span> <span class="o">--</span> <span class="n">s1950737</span> <span class="ow">is</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">sudoers</span> <span class="n">file</span><span class="o">.</span>  <span class="n">This</span> <span class="n">incident</span> <span class="n">will</span> <span class="n">be</span> <span class="n">reported</span><span class="o">.</span>
+<span class="n">DEBUG</span> <span class="o">--</span> <span class="n">cp</span> <span class="o">/</span><span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_files</span><span class="o">/</span><span class="n">Diploid</span><span class="o">/</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fasta</span> <span class="o">.</span>
+         <span class="o">./</span><span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="o">../</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fasta</span>
+</pre></div>
+</div>
+<p><em>Time consumed: 6 minutes</em></p>
+<p><em>Second step:Alignment (2-1: The file created from the “bwa aln …” call is a “.sai” file containing the suffix array coordinates of all short reads loaded to BWA.)</em> – (screen -r diploid2)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">bwa</span> <span class="n">aln</span> <span class="o">-</span><span class="n">t</span> <span class="mi">4</span> <span class="o">../</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fasta</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">tagsForAlign</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">gz</span> <span class="o">&gt;</span> <span class="n">tagsForAlign</span><span class="o">.</span><span class="n">sai</span>
+</pre></div>
+</div>
+<p>Errors and debug:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">**</span><span class="n">ERROR</span><span class="o">**</span> <span class="o">--</span> <span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="mi">17</span><span class="n">bp</span> <span class="n">reads</span><span class="p">:</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="mi">38</span><span class="n">bp</span> <span class="n">reads</span><span class="p">:</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="mi">64</span><span class="n">bp</span> <span class="n">reads</span><span class="p">:</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="mi">93</span><span class="n">bp</span> <span class="n">reads</span><span class="p">:</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="mi">124</span><span class="n">bp</span> <span class="n">reads</span><span class="p">:</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="mi">157</span><span class="n">bp</span> <span class="n">reads</span><span class="p">:</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="mi">190</span><span class="n">bp</span> <span class="n">reads</span><span class="p">:</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="mi">225</span><span class="n">bp</span> <span class="n">reads</span><span class="p">:</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="p">[</span><span class="n">bwa_aln</span><span class="p">]</span> <span class="n">fail</span> <span class="n">to</span> <span class="n">locate</span> <span class="n">the</span> <span class="n">index</span>
+<span class="o">**</span><span class="n">DEBUG</span><span class="o">**</span> <span class="o">--</span> <span class="o">./</span><span class="n">bwa</span> <span class="n">aln</span> <span class="o">-</span><span class="n">t</span> <span class="mi">4</span> <span class="o">../</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fasta</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">tagsForAlign</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">gz</span> <span class="o">&gt;</span> <span class="n">tagsForAlign</span><span class="o">.</span><span class="n">sai</span>
+</pre></div>
+</div>
+<p><em>Time consumed: 17 seconds</em></p>
+<p><strong>Summary for this moment</strong></p>
+<p>1. the output files in [bwa] will store in the same folder with reference genomes, and I put it into [/localdisk/home/s1950737] – all the other outputs (including output of step one –
+[anglica_HB050619
+_scaffoldsKeptAnno.fasta.amb];
+[anglica_HB050619
+_scaffoldsKeptAnno.fasta.ann];
+[anglica_HB050619
+_scaffoldsKeptAnno.fasta.bwt];
+[anglica_HB050619
+_scaffoldsKeptAnno.fasta.pac]
+and output of step two –
+[anglica_HB050619
+_scaffoldsKeptAnno.fasta.sa])
+are in this folder.
+So in this step, I moved them into the the new folder [referenceGenome] to make it clear and tidy.</p>
+<p><em>Second step: Alignment (2-2): There is one more conversion to obtain the .sam file.</em> – (screen -r diploid2)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">bwa</span> <span class="n">samse</span> <span class="o">../</span><span class="n">referenceGenome</span><span class="o">/</span><span class="n">anglica_HB050619_scaffoldsKeptAnno</span><span class="o">.</span><span class="n">fasta</span> <span class="n">tagsForAlign</span><span class="o">.</span><span class="n">sai</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">tagsForAlign</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">gz</span> <span class="o">&gt;</span> <span class="n">tagsForAlign</span><span class="o">.</span><span class="n">sam</span>
+</pre></div>
+</div>
+<p><em>Time consumed: 5.38 seconds</em></p>
+</div>
+<div class="section" id="step5-discoverysnpcallerpluginv2">
+<h2>20191118_Step5: DiscoverySNPCallerPluginV2<a class="headerlink" href="#step5-discoverysnpcallerpluginv2" title="Permalink to this headline">¶</a></h2>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;Input GBS Database&gt; : Input Database file if using SQLite (REQUIRED)</span>
+</pre></div>
+</div>
+<p>My code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">fork1</span> <span class="o">-</span><span class="n">DiscoverySNPCallerPluginV2</span> <span class="o">-</span><span class="n">db</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span> <span class="o">-</span><span class="n">endPlugin</span> <span class="o">-</span><span class="n">runfork1</span>
+</pre></div>
+</div>
+<p><em>Time consumed: 3 seconds</em></p>
+</div>
+<div class="section" id="productionsnpcallerpluginv2">
+<h2>20191118_ProductionSNPCallerPluginV2<a class="headerlink" href="#productionsnpcallerpluginv2" title="Permalink to this headline">¶</a></h2>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;Input GBS Database&gt; : Input Database file if using SQLite (REQUIRED)</span>
+<span class="o">-</span><span class="n">e</span> <span class="c1">## &lt;Enzyme&gt; : Enzyme used to create the GBS library (REGQUIRED)</span>
+<span class="o">-</span><span class="n">i</span> <span class="c1">## &lt;Input Directory&gt; : Input directory containing fastq AND/OR qseq files (REQUIRED)</span>
+<span class="o">-</span><span class="n">k</span> <span class="c1">## &lt;Key File&gt; : Key file listing barcodes distinguishing the sample (REQUIRED)</span>
+<span class="o">-</span><span class="n">o</span> <span class="c1">## &lt;Output Genotypes File&gt; : Output (target) genotypes file to which is added new genotypes. VCF format is the default. if the file specified has suffix &quot;.h5&quot; output will be to an HDF5 file. (REQUIRED)</span>
+</pre></div>
+</div>
+<p>My code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">fork1</span> <span class="o">-</span><span class="n">ProductionSNPCallerPluginV2</span> <span class="o">-</span><span class="n">db</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span> <span class="o">-</span><span class="n">e</span> <span class="n">ApeKI</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_illumina</span> <span class="o">-</span><span class="n">k</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">DipKey</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">productionHapMap_diploid</span><span class="o">.</span><span class="n">vcf</span> <span class="o">-</span><span class="n">endPlugin</span> <span class="o">-</span><span class="n">runfork1</span>
+</pre></div>
+</div>
+<p>Errors and debug:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ERROR -- net.maizegenetics.analysis.gbs.v2.ProductionSNPCallerPluginV2 - No snp positons found with quality score of 0.0. Please run UpdateSNPPositionQualityPlugin to add quality scores for your positions, then select snp positions within a quality range you have specified.
+DEBUG -- FORGOT ONE STEP!!!
+</pre></div>
+</div>
+</div>
+<div class="section" id="step6-snpqualityprofilerplugin">
+<h2>20191118_Step6: SNPQualityProfilerPlugin<a class="headerlink" href="#step6-snpqualityprofilerplugin" title="Permalink to this headline">¶</a></h2>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;Output Database file&gt; : Name of output file (e.g. GBSv2.db) (REQUIRED)</span>
+</pre></div>
+</div>
+<p>what’s this? I do not really understand…</p>
+</div>
+<div class="section" id="step4-samtogbsdbplugin">
+<h2>20191120_Step4: SAMToGBSdbPlugin<a class="headerlink" href="#step4-samtogbsdbplugin" title="Permalink to this headline">¶</a></h2>
+<p><strong>Summary for this moment</strong>
+1. I confused some procedure before, skipping the step 4(i.e. SAMToGBSdbPlugin), so I need to go back this step. Before, I need to clean up some output files, they located in different folders confused me a lot. First, let’s link the steps with outfiles and input files, here we go:
+2. Step1 (i.e. GBSSeqToTagDBPlugin): FASTAQ files(floder); Key File ==&gt;&gt; GBSV2.db ( <em>Diploid</em> )</p>
+<blockquote>
+<div><p>Step2 (i.e. TagExportToFastqPlugin): GBSV2.db ( <em>Diploid</em> ) ==&gt;&gt; tagsForAlign.fa.gz ( <em>Diploid</em> )
+Step3 (i.e. BWA alingment):</p>
+<blockquote>
+<div><p>Step3-1: reference genome ( <em>referenceGenome</em> ) ==&gt;&gt; several index files – amb, bwt, pac, ann, sa ( <em>referenceGenome</em> )
+Step3-2: reference genome ( <em>referenceGenome</em> ); tagsForAlign.fa.gz ( <em>Diploid</em> ) ==&gt;&gt; tagsForAlign.sai ( <em>bwa</em> )
+Step3-3: reference genome ( <em>referenceGenome</em> ); tagsForAlign.fa.gz ( <em>Diploid</em> ); tagsForAlign.sai ( <em>bwa</em> ) ==&gt;&gt; tagsForAlign.sam ( <em>bwa</em> )</p>
+</div></blockquote>
+</div></blockquote>
+<p><strong>Here, I should also typed the path for tagsForAlign.sai and tagsForAlign.sam to Diploid. Then continue step4:</strong></p>
+<blockquote>
+<div><p>Step4 (i.e. SAMToGBSdbPlugin): tagsForAlign.sam ( <em>Diploid</em> ) ==&gt;&gt; GBSV2.db ( <em>Diploid</em> ) – rewrite
+Step5 (DiscoverySNPCallerPluginV2):</p>
+</div></blockquote>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">i</span> <span class="c1">## &lt;SAM Input file&gt; (REQUIRED)</span>
+<span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;GBS DB file&gt; (REQUIRED)</span>
+</pre></div>
+</div>
+<p>My code (screen -r diploid2)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">SAMToGBSdbPlugin</span> <span class="o">-</span><span class="n">i</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">tagsForAlign</span><span class="o">.</span><span class="n">sam</span> <span class="o">-</span><span class="n">db</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span>
+</pre></div>
+</div>
+<p><em>Time concumed: 1 minute</em></p>
+</div>
+<div class="section" id="id1">
+<h2>20191120_Step5: DiscoverySNPCallerPluginV2<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;Input GBS Database&gt; : Input Database file if using SQLite (REQUIRED)</span>
+</pre></div>
+</div>
+<p>My code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">DiscoverySNPCallerPluginV2</span> <span class="o">-</span><span class="n">db</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span>
+</pre></div>
+</div>
+<p><em>Time consumed: 14:27 20/11/19 - it seems endless, adjustment in the following</em> – it is because connection reset, so do each step in screen not in the local terminal!!!!!</p>
+<p>screen -r diploid2: recalculate from 11:07 21/11/19 - 18:36 21/11/19, 7.5h</p>
+</div>
+<div class="section" id="id2">
+<h2>20191125_Step6: SNPQualityProfilerPlugin<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;Input GBS Database&gt; : Input Database file if using SQLite (REQUIRED)</span>
+</pre></div>
+</div>
+<p>My code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">SNPQualityProfilerPlugin</span> <span class="o">-</span><span class="n">db</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span>
+</pre></div>
+</div>
+<p><em>Time consumed: instantly</em></p>
+</div>
+<div class="section" id="step7-updatesnppositionqualityplugin">
+<h2>20191125_Step7: UpdateSNPPositionQualityPlugin<a class="headerlink" href="#step7-updatesnppositionqualityplugin" title="Permalink to this headline">¶</a></h2>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;Input GBS Database&gt; : Input Database file if using SQLite (REQUIRED)</span>
+<span class="o">-</span><span class="n">qsFile</span> <span class="c1">## &lt;Quality Score File&gt; : A tab delimited txt file containing headers CHROM( String), POS (Integer) and QUALITYSCORE(Float) for filtering. (REQUIRED)</span>
+</pre></div>
+</div>
+<p>My code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./run_pipeline.pl -UpdateSNPPositionQualityPlugin -db ../Diploid/GBSV2.db -qsFile (???what&#39;s this?)
+</pre></div>
+</div>
+<p><a href="#id3"><span class="problematic" id="id4">*</span></a>Time consumed: *</p>
+</div>
+<div class="section" id="productionpipeline-productionsnpcallerpluginv2">
+<h2>20191123_ProductionPipeline ProductionSNPCallerPluginV2<a class="headerlink" href="#productionpipeline-productionsnpcallerpluginv2" title="Permalink to this headline">¶</a></h2>
+<p><strong>Required parameters:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">db</span> <span class="c1">## &lt;Input GBS Database&gt; : Input Database file if using SQLite (REQUIRED)</span>
+<span class="o">-</span><span class="n">e</span> <span class="c1">## &lt;Enzyme&gt; : Enzyme used to create the GBS library (REGQUIRED)</span>
+<span class="o">-</span><span class="n">i</span> <span class="c1">## &lt;Input Directory&gt; : Input directory containing fastq AND/OR qseq files (REQUIRED)</span>
+<span class="o">-</span><span class="n">k</span> <span class="c1">## &lt;Key File&gt; : Key file listing barcodes distinguishing the sample (REQUIRED)</span>
+<span class="o">-</span><span class="n">o</span> <span class="c1">## &lt;Output Genotypes File&gt; : Output (target) genotypes file to which is added new genotypes. VCF format is the default. if the file specified has suffix &quot;.h5&quot; output will be to an HDF5 file. (REQUIRED)</span>
+</pre></div>
+</div>
+<p>My code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">ProductionSNPCallerPluginV2</span> <span class="o">-</span><span class="n">db</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">GBSV2</span><span class="o">.</span><span class="n">db</span> <span class="o">-</span><span class="n">e</span> <span class="n">ApeKI</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">disk2</span><span class="o">/</span><span class="n">Twyford_GBS_illumina</span> <span class="o">-</span><span class="n">k</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">DipKey</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../</span><span class="n">Diploid</span><span class="o">/</span><span class="n">productionHapMap_diploid</span><span class="o">.</span><span class="n">vcf</span>
+</pre></div>
+</div>
+<p><em>Time consumed: 14:37 23/11/2019 - 14:47 23/11/2019; 10 minutes.</em></p>
+</div>
+<div class="section" id="q-a">
+<h2>Q &amp; A<a class="headerlink" href="#q-a" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>output:</p></li>
+</ol>
+<blockquote>
+<div><p>Why there is a GBSV1.db in the first step (the outoput of GBSSeqToTagDBPlugin)?</p>
+</div></blockquote>
+<p>Q2. In the following example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run_pipeline</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">fork1</span> <span class="o">-</span><span class="n">TagExportToFastqPlugin</span> <span class="o">-</span><span class="n">db</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">lcj34</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">tassel</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">test</span><span class="o">/</span><span class="n">tempdir</span><span class="o">/</span><span class="n">GBS</span><span class="o">/</span><span class="n">Chr9_10</span><span class="o">-</span><span class="mi">20000000</span><span class="o">/</span><span class="n">GBSv2</span><span class="o">.</span><span class="n">db</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">lcj34</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">tassel</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">test</span><span class="o">/</span><span class="n">tempDir</span><span class="o">/</span><span class="n">GBS</span><span class="o">/</span><span class="n">Chr9_10</span><span class="o">-</span><span class="mi">20000000</span><span class="o">/</span><span class="n">tagsForAlign</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">gz</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span> <span class="o">-</span><span class="n">endPlugin</span> <span class="o">-</span><span class="n">runfork1</span>
+</pre></div>
+</div>
+<p>What’s the fork1 and endPlugin for?</p>
+<p>A2: In java, it supposed to support different forks running at the same time. There won’t be anything wrong if without fork1. The same for the endPlugin.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Diploid.html" class="btn btn-neutral float-right" title="Diploid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="GBSv2Pipeline.html" class="btn btn-neutral float-left" title="GBS v2 Pipeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Yanqian Ding
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
