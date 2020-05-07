@@ -45,9 +45,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'TASSEL_log'
-copyright = u'2019, Yanqian Ding'
-author = u'Yanqian Ding'
+project = u'DING_log'
+copyright = u'2019, DING'
+author = u'DING'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -113,7 +113,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'TASSEL_logdoc'
+htmlhelp_basename = 'DING_logdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -140,7 +140,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'TASSEL_log.tex', u'TASSEL\\_log Documentation',
+    (master_doc, 'DING_log.tex', u'DING\\_log Documentation',
      u'Yanqian Ding', 'manual'),
 ]
 
@@ -150,7 +150,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'tassel_log', u'TASSEL_log Documentation',
+    (master_doc, 'DING_log', u'DING_log Documentation',
      [author], 1)
 ]
 
@@ -161,8 +161,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'TASSEL_log', u'TASSEL_log Documentation',
-     author, 'TASSEL_log', 'One line description of project.',
+    (master_doc, 'DING_log', u'DING_log Documentation',
+     author, 'DING_log', 'One line description of project.',
      'Miscellaneous'),
 ]
 

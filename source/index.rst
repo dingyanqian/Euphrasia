@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to TASSEL_log's documentation!
+Welcome to DING_log's documentation!
 ======================================
 
 .. toctree::
@@ -11,9 +11,13 @@ Welcome to TASSEL_log's documentation!
    :caption: Contents:
 
    usage/GBSv2Pipeline
+   usage/PLINK
+   usage/fastStructure
    usage/PilotRun
    usage/Diploid
-
+   usage/TETSUMMARY
+   usage/vcfFiles
+   
 Indices and tables
 ==================
 

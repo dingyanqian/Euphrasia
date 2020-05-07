@@ -18,6 +18,7 @@ Wiki website: `GBSSeqToTagDBPlugin <https://bitbucket.org/tasseladmin/tassel-5-s
 
 My code -- first try:
 ::
+
   ./run_pipeline.pl -GBSSeqToTagDBPlugin -db /localdisk/home/s1950737/Diploid/GBSV2.db -e ApeKI -i /disk2/Twyford_GBS_illumina -k /localdisk/home/s1950737/Diploid/DipKey.txt 
 
 Error info:
@@ -29,6 +30,7 @@ Error info:
 
 My code -- second try:
 ::
+
   ./run_pipeline.pl -Xms100G -Xmx200G -GBSSeqToTagDBPlugin -db /localdisk/home/s1950737/Diploid/GBSV2.db -e ApeKI -i /disk2/Twyford_GBS_illumina -k /localdisk/home/s1950737/Diploid/DipKey.txt 
 
 *Time consumed: Start time: 17:00 15/11/19; screen -r diploid2*
@@ -187,17 +189,25 @@ what's this? I do not really understand...
 20191120_Step4: SAMToGBSdbPlugin
 =================================================
 **Summary for this moment**
+
 1. I confused some procedure before, skipping the step 4(i.e. SAMToGBSdbPlugin), so I need to go back this step. Before, I need to clean up some output files, they located in different folders confused me a lot. First, let's link the steps with outfiles and input files, here we go:
+
 2. Step1 (i.e. GBSSeqToTagDBPlugin): FASTAQ files(floder); Key File ==>> GBSV2.db ( *Diploid* )
+   
    Step2 (i.e. TagExportToFastqPlugin): GBSV2.db ( *Diploid* ) ==>> tagsForAlign.fa.gz ( *Diploid* )
+   
    Step3 (i.e. BWA alingment): 
+     
      Step3-1: reference genome ( *referenceGenome* ) ==>> several index files -- amb, bwt, pac, ann, sa ( *referenceGenome* )
+     
      Step3-2: reference genome ( *referenceGenome* ); tagsForAlign.fa.gz ( *Diploid* ) ==>> tagsForAlign.sai ( *bwa* )
+     
      Step3-3: reference genome ( *referenceGenome* ); tagsForAlign.fa.gz ( *Diploid* ); tagsForAlign.sai ( *bwa* ) ==>> tagsForAlign.sam ( *bwa* ) 
 
 **Here, I should also typed the path for tagsForAlign.sai and tagsForAlign.sam to Diploid. Then continue step4:** 
    
    Step4 (i.e. SAMToGBSdbPlugin): tagsForAlign.sam ( *Diploid* ) ==>> GBSV2.db ( *Diploid* ) -- rewrite
+  
    Step5 (DiscoverySNPCallerPluginV2): 
 
 
@@ -260,11 +270,9 @@ My code:
 
   ./run_pipeline.pl -UpdateSNPPositionQualityPlugin -db ../Diploid/GBSV2.db -qsFile (???what's this?)
 
-*Time consumed: *
-
-=================================================
+==========================================================
 20191123_ProductionPipeline ProductionSNPCallerPluginV2
-=================================================
+==========================================================
 **Required parameters:**
 ::
 
@@ -286,7 +294,8 @@ Q & A
 =================================================
 
 1. output:
-  Why there is a GBSV1.db in the first step (the outoput of GBSSeqToTagDBPlugin)?
+  
+Why there is a GBSV1.db in the first step (the outoput of GBSSeqToTagDBPlugin)?
 
 
 Q2. In the following example:
@@ -298,3 +307,41 @@ Q2. In the following example:
 What's the fork1 and endPlugin for?
 
 A2: In java, it supposed to support different forks running at the same time. There won't be anything wrong if without fork1. The same for the endPlugin.
+
+=================================================
+20200115_SNP-filter
+=================================================
+Program: TASSEL v5.0 GUI
+
+Steps: 
+
+Filter ==>> Filter Genotype Table Sites: Filter Name (MAF=0.05); Site Min Allele Freq (0.05) ==>> Filter Genotype Table Taxa: Filter Name (MAF=0.05&MD<0.8); Min Proportion of Sites Present (0.2) ==>> File Save as (vcf, filename='MAF0.05MD0.8')
+
+GenoSummary:
+Data ==>> GenoSummary
+
+=================================================
+20200116_UPDATED information
+=================================================
+**Changing files and folders!!!**
+
+Found one tetraploid species in the pilot run datasets (taxa number with E4E0042, species is E. micrantha x scottica; the reason I made the mistake is because it has a location abbreviation as 'ANG', which should indicated as 'E. anglica'. This is just a wrong information, that is, there should not be an abbreviation of ANG for the location. I missed this one and put it into the analyses before);
+
+Also, there are two more 'supposed diploid' species included this time. The 'supposed diploid' is refers to the hybrids between tetraploid and diploid, which are assumed to be diploid in my first phase of research. This two hybrids are *E. arctica x rostkoviana* and *E. tetraquetra x vigursii*.
+
+So I have to make another run for the new diploid datasets. This time, I changed the 'pilotrun_diploid' to 'pilotrun' only. Also changed the names in server to make it more distinguish. 
+
+All in all, everything refers later as 'Diploid' should be the updated information, that is, excluding the tetraploid and including the other two diploid hybrids. The former one with 'pilotrun' should be referred as the first trying. 
+
+
+
+
+
+
+
+
+
+
+
+
+
